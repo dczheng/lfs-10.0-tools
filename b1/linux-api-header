@@ -1,0 +1,7 @@
+tar xvf $PKGS/linux-5.8.3.tar.xz \
+&& cd linux-5.8.3 \
+&& make $MKOPT mrproper \
+&& make $MKOPT headers \
+&& find usr/include -name '.*' -delete \
+&& rm usr/include/Makefile \
+&& cp -rv usr/include $LFS/usr

@@ -1,0 +1,5 @@
+tar xvf $PKGS/file-5.39.tar.gz\
+&& cd file-5.39 \
+&& ./configure --prefix=/usr --host=$LFS_TGT \
+&& make $MKOPT \
+&& make DESTDIR=$LFS install

@@ -1,0 +1,5 @@
+tar xvf $PKGS/diffutils-3.7.tar.xz \
+&& cd diffutils-3.7 \
+&& ./configure --prefix=/usr \
+&& make $MKOPT \
+&& make check && make install

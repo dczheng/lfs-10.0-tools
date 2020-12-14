@@ -1,0 +1,5 @@
+tar xvf $PKGS/gettext-0.21.tar.xz \
+&& cd gettext-0.21 \
+&& ./configure --disable-shared \
+&& make $MKOPT \
+&& cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin

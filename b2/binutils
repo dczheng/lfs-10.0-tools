@@ -1,0 +1,13 @@
+tar xvf $PKGS/binutils-2.35.tar.xz \
+&& cd binutils-2.35 \
+&& mkdir build \
+&& cd build \
+&& ../configure --prefix=/usr      \
+             --build=$(../config.guess) \
+             --host=$LFS_TGT            \
+             --disable-nls              \
+             --enable-shared            \
+             --disable-werror \
+             --enable-64-bit-bfd \
+&& make $MKOPT \
+&& make DESTDIR=$LFS install

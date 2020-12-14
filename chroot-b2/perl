@@ -1,0 +1,12 @@
+tar xvf $PKGS/perl-5.32.0.tar.xz \
+&& cd perl-5.32.0 \
+&& sh Configure -des -Dprefix=/usr \
+	             -Dvendorprefix=/usr \
+                     -Dprivlib=/usr/lib/per15/5.32/core-perl \
+                     -Darchlib=/usr/lib/per15/5.32/core-perl \
+                     -Dsitelib=/usr/lib/per15/5.32/site-perl \
+                     -Dsitearch=/usr/lib/per15/5.32/site-perl \
+                     -Dvendorlib=/usr/lib/per15/5.32/vendor_perl \
+                     -Dvendorarch=/usr/lib/per15/5.32/vendor_perl \
+&& make $MKOPT \
+&& make install

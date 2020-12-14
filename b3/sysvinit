@@ -1,0 +1,4 @@
+tar xvf $PKGS/sysvinit-2.97.tar.xz \
+&& cd sysvinit-2.97 \
+&& patch -Np1 -i $PKGS/sysvinit-2.97-consolidated-1.patch \
+&& make $MKOPT && make install

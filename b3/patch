@@ -1,0 +1,3 @@
+tar xvf $PKGS/patch-2.7.6.tar.xz \
+&& cd patch-2.7.6 && ./configure --prefix=/usr \
+&& make $MKOPT && make check && make install 

@@ -1,0 +1,5 @@
+tar xvf $PKGS/texinfo-6.7.tar.xz \
+&& cd texinfo-6.7 \
+&& ./configure --prefix=/usr \
+&& make $MKOPT \
+&& make install

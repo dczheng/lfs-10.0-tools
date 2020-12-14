@@ -1,0 +1,5 @@
+tar xvf $PKGS/bison-3.7.1.tar.xz \
+&& cd bison-3.7.1 \
+&& ./configure --prefix=/usr --docdir=/usr/share/doc/bison-3.7.1 \
+&& make $MKOPT \
+&& make install

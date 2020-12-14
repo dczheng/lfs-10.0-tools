@@ -1,0 +1,14 @@
+tar xvf $PKGS/glibc-2.32.tar.xz \
+&& cd glibc-2.32 \
+&& patch -Np1 -i $PKGS/glibc-2.32-fhs-1.patch \
+&& mkdir build \
+&& cd build \
+&& ../configure --prefix=/usr                            \
+             --disable-werror                         \
+             --enable-kernel=3.2                      \
+             --enable-stack-protector=strong          \
+             --with-headers=/usr/include              \
+             libc_cv_slibdir=/lib \
+&& make $MKOPT \
+&& ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib \
+&& make check 

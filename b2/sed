@@ -1,0 +1,8 @@
+tar xvf $PKGS/sed-4.8.tar.xz \
+&& cd sed-4.8 \
+&& ./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --bindir=/bin \
+&& make $MKOPT \
+&& make DESTDIR=$LFS install
+

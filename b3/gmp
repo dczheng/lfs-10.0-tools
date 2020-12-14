@@ -1,0 +1,14 @@
+tar xvf $PKGS/gmp-6.2.0.tar.xz \
+&& cd gmp-6.2.0 \
+&& ./configure --prefix=/usr    \
+            --enable-cxx     \
+            --disable-static \
+            --docdir=/usr/share/doc/gmp-6.2.0 \
+&& make $MKOPT \
+&& make $MKOPT html \
+&& make check 2>&1 | tee gmp-check-log \
+&& n=`awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log` \
+&& [ $n == 197 ]  \
+&& make  install \
+&& make install-html
+

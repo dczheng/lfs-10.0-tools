@@ -1,0 +1,10 @@
+tar xvf  $PKGS/bash-5.0.tar.gz \
+&& cd bash-5.0 \
+&& ./configure --prefix=/usr                   \
+            --build=$(support/config.guess) \
+            --host=$LFS_TGT                 \
+            --without-bash-malloc \
+&& make $MKOPT \
+&& make DESTDIR=$LFS install \
+&& mv $LFS/usr/bin/bash $LFS/bin/bash \
+&& ln -sfv bash $LFS/bin/sh

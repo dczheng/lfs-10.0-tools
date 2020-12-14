@@ -1,0 +1,4 @@
+tar xvf $PKGS/make-4.3.tar.gz \
+&& cd make-4.3 \
+&& ./configure --prefix=/usr \
+&& make $MKOPT && make check && make install 
