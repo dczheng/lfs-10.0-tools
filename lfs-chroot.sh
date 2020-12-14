@@ -359,15 +359,15 @@ LFS
 EOF
 cat /etc/hostname 
 
-cat > /etc/bashrc << EOF
-#Begin /etc/bashrc
+cat > /etc/profile << EOF
+#Begin /etc/profile
 export PS1="\u@\W -> "
 alias  ls="ls --color"
 alias  ll="ls -l"
-#End /etc/bashrc
+#End /etc/prifile
 EOF
-source /etc/bashrc
-cat /etc/bashrc
+source /etc/profile
+cat /etc/profile
 
 cd $LFS
 		
