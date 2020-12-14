@@ -9,7 +9,7 @@
 > Comparing the Output of `$LFS_TOOLS/version-check.sh` with "http://www.linuxfromscratch.org/lfs/view/stable/chapter02/hostreqs.html" 
 
 **Download all Packages**
-> `wget --input-file=$LFS_TOOLS/wget-list --continue --directory=prefix=$PKGS`
+> `wget --input-file=$LFS_TOOLS/wget-list --continue --directory-prefix=$PKGS`
 
 **Initialize Compilation Environment**
 > `source lfs.sh`   
