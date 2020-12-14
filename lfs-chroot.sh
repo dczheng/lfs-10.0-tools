@@ -340,9 +340,7 @@ EOF
 
     
 cat > /etc/hostname << EOF
-#Begin /etc/hostname
 LFS
-#End /etc/hostname
 EOF
 cat /etc/hostname 
 
