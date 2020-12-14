@@ -250,6 +250,21 @@ devtmpfs       /dev         devtmpfs mode=0755,nosuid    0     0
 EOF
     cat /etc/fstab
     
+ cd /etc/sysconfig/
+cat > ifconfig.enp0s25 << "EOF"
+ONBOOT=yes
+IFACE=enp0s25
+SERVICE=ipv4-static
+IP=192.168.20.221
+GATEWAY=192.168.20.254
+PREFIX=24
+BROADCAST=192.168.20.255
+EOF
+
+cat > /etc/resolv.conf << "EOF"
+nameserver 223.5.5.5
+EOF
+    
     cat > /etc/inittab << "EOF"
 # Begin /etc/inittab
 
