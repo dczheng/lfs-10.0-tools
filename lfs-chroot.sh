@@ -211,8 +211,6 @@ find /usr/lib /usr/libexec -name \*.la -delete
 
 find /usr -depth -name $(uname -m)-lfs-linux-gnu\* | xargs rm -rf
 
-rm -rf /tools
-
 userdel -r tester
 
 rm -rf $LFS_BUILD_DIR1
