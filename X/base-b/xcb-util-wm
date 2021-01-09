@@ -1,0 +1,5 @@
+tar xvf $PKGS/xcb-util-wm-0.4.1.tar.bz2 \
+&& cd xcb-util-wm-0.4.1 \
+&& ./configure $XORG_CONFIG \
+&& make \
+&& make install

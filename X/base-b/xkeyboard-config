@@ -1,0 +1,5 @@
+tar xvf $PKGS/xkeyboard-config-2.30.tar.bz2 \
+&& cd xkeyboard-config-2.30 \
+&& ./configure --with-xkb-rules-symlink=xorg  $XORG_CONFIG \
+&& make \
+&& make install

@@ -1,0 +1,5 @@
+tar xvf $PKGS/libevdev-1.9.1.tar.xz \
+&& cd libevdev-1.9.1 \
+&& ./configure $XORG_CONFIG \
+&& make  \
+&& make install

@@ -1,0 +1,5 @@
+tar xvf $PKGS/xcb-util-renderutil-0.3.9.tar.bz2 \
+&& cd xcb-util-renderutil-0.3.9 \
+&& ./configure $XORG_CONFIG \
+&& make \
+&& make install
