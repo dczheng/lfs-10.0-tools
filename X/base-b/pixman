@@ -1,0 +1,7 @@
+tar xvf $PKGS/pixman-0.40.0.tar.gz \
+&& cd pixman-0.40.0 \
+&& mkdir build \
+&& cd    build \
+&& meson --prefix=/usr \
+&& ninja \
+&& ninja install

@@ -14,6 +14,7 @@ lfs-env() {
     export PKGS=$LFS/sources
     export LFS_TOOLS=$LFS/lfs-10.0-tools
     PS1="lfs@\W -> "
+    export BUILD_ROOT_DIR=$LFS
 
     export LC_ALL=POSIX
     export LFS_TGT=$(uname -m)-lfs-linux-gnu
@@ -30,49 +31,49 @@ lfs-env() {
 }
 
 lfs-build-init() {
-    lfs-create-dir $LFS/bin
-    lfs-create-dir $LFS/etc
-    lfs-create-dir $LFS/lib
-    lfs-create-dir $LFS/lib64
-    lfs-create-dir $LFS/sbin
-    lfs-create-dir $LFS/usr
-    lfs-create-dir $LFS/var
-    lfs-create-dir $LFS/tools
+    create-dir $LFS/bin
+    create-dir $LFS/etc
+    create-dir $LFS/lib
+    create-dir $LFS/lib64
+    create-dir $LFS/sbin
+    create-dir $LFS/usr
+    create-dir $LFS/var
+    create-dir $LFS/tools
 }
 
 lfs-build1() {
-    lfs-create-dir $LFS_BUILD_DIR1
-    LFS_BUILD_DIR=$LFS_BUILD_DIR1
+    create-dir $LFS_BUILD_DIR1
+    BUILD_BUILD_DIR=$LFS_BUILD_DIR1
     export EXIT_FLAG=""
-    lfs-build-aux $LFS_TOOLS/b1/binutils
-    lfs-build-aux $LFS_TOOLS/b1/gcc
-    lfs-build-aux $LFS_TOOLS/b1/linux-api-header
-    lfs-build-aux $LFS_TOOLS/b1/glibc
-    lfs-build-aux $LFS_TOOLS/b1/libstdc++
+    run-build $LFS_TOOLS/b1/binutils
+    run-build $LFS_TOOLS/b1/gcc
+    run-build $LFS_TOOLS/b1/linux-api-header
+    run-build $LFS_TOOLS/b1/glibc
+    run-build $LFS_TOOLS/b1/libstdc++
 
 }
 
 lfs-build2() {
-    lfs-create-dir $LFS_BUILD_DIR2
-    LFS_BUILD_DIR=$LFS_BUILD_DIR2
+    create-dir $LFS_BUILD_DIR2
+    BUILD_BUILD_DIR=$LFS_BUILD_DIR2
     export EXIT_FLAG=""
-    lfs-build-aux $LFS_TOOLS/b2/m4
-    lfs-build-aux $LFS_TOOLS/b2/ncurses
-    lfs-build-aux $LFS_TOOLS/b2/bash
-    lfs-build-aux $LFS_TOOLS/b2/coreutils
-    lfs-build-aux $LFS_TOOLS/b2/diffutils
-    lfs-build-aux $LFS_TOOLS/b2/file
-    lfs-build-aux $LFS_TOOLS/b2/findutils
-    lfs-build-aux $LFS_TOOLS/b2/gawk
-    lfs-build-aux $LFS_TOOLS/b2/grep
-    lfs-build-aux $LFS_TOOLS/b2/gzip
-    lfs-build-aux $LFS_TOOLS/b2/make
-    lfs-build-aux $LFS_TOOLS/b2/patch
-    lfs-build-aux $LFS_TOOLS/b2/sed
-    lfs-build-aux $LFS_TOOLS/b2/tar
-    lfs-build-aux $LFS_TOOLS/b2/xz
-    lfs-build-aux $LFS_TOOLS/b2/binutils
-    lfs-build-aux $LFS_TOOLS/b2/gcc
+    run-build $LFS_TOOLS/b2/m4
+    run-build $LFS_TOOLS/b2/ncurses
+    run-build $LFS_TOOLS/b2/bash
+    run-build $LFS_TOOLS/b2/coreutils
+    run-build $LFS_TOOLS/b2/diffutils
+    run-build $LFS_TOOLS/b2/file
+    run-build $LFS_TOOLS/b2/findutils
+    run-build $LFS_TOOLS/b2/gawk
+    run-build $LFS_TOOLS/b2/grep
+    run-build $LFS_TOOLS/b2/gzip
+    run-build $LFS_TOOLS/b2/make
+    run-build $LFS_TOOLS/b2/patch
+    run-build $LFS_TOOLS/b2/sed
+    run-build $LFS_TOOLS/b2/tar
+    run-build $LFS_TOOLS/b2/xz
+    run-build $LFS_TOOLS/b2/binutils
+    run-build $LFS_TOOLS/b2/gcc
     cd $LFS
 }
 

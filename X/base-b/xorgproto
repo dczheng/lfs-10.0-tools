@@ -2,7 +2,7 @@ tar xvf $PKGS/xorgproto-2020.1.tar.bz2 \
 && cd xorgproto-2020.1 \
 && mkdir build \
 && cd build \
-&& meson --prefix=/usr  -Dlegacy=true .. \
+&& meson --prefix=/usr  .. \
 && ninja \
 && ninja install \
 && install -vdm 755 /usr/share/doc/xorgproto-2020.1 \

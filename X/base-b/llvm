@@ -1,0 +1,30 @@
+tar xvf $PKGS/llvm-10.0.1.src.tar.xz \
+&& cd llvm-10.0.1.src \
+&& tar -xf $PKGS/clang-10.0.1.src.tar.xz -C tools \
+&& tar -xf $PKGS/compiler-rt-10.0.1.src.tar.xz -C projects \
+&& mv tools/clang-10.0.1.src tools/clang \
+&& mv projects/compiler-rt-10.0.1.src projects/compiler-rt \
+&& mkdir -v build \
+&& cd       build \
+&& CC=gcc CXX=g++                                  \
+&& cmake -DCMAKE_INSTALL_PREFIX=/usr               \
+      -DLLVM_ENABLE_FFI=ON                      \
+      -DCMAKE_BUILD_TYPE=Release                \
+      -DLLVM_BUILD_LLVM_DYLIB=ON                \
+      -DLLVM_LINK_LLVM_DYLIB=ON                 \
+      -DLLVM_ENABLE_RTTI=ON                     \
+      -DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+      -DLLVM_BUILD_TESTS=ON                     \
+      -Wno-dev -G Ninja ..                      \
+&& ninja \
+&& cmake -DLLVM_ENABLE_SPHINX=ON         \
+      -DSPHINX_WARNINGS_AS_ERRORS=OFF \
+      -Wno-dev -G Ninja ..            \
+&& ninja docs-llvm-html  docs-llvm-man \
+&& ninja install \
+&& install -v -m644 docs/man/* /usr/share/man/man1 \ 
+&& install -v -d -m755 /usr/share/doc/llvm-10.0.1/llvm-html \
+&& cp -Rv docs/html/* /usr/share/doc/llvm-10.0.1/llvm-html \
+&& install -v -m644 tools/clang/docs/man/* /usr/share/man/man1 \
+&& install -v -d -m755 /usr/share/doc/llvm-10.0.1/clang-html    \
+&& cp -Rv tools/clang/docs/html/* /usr/share/doc/llvm-10.0.1/clang-html

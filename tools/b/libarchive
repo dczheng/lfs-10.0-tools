@@ -1,0 +1,6 @@
+tar xvf $PKGS/libarchive-3.4.3.tar.xz \
+&& cd libarchive-3.4.3 \
+&& patch -Np1 -i $PKGS/libarchive-3.4.3-testsuite_fix-1.patch \
+&& ./configure --prefix=/usr --disable-static \
+&& make $MKOPT \
+&& make install

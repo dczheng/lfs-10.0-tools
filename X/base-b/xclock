@@ -1,5 +1,5 @@
 tar xvf $PKGS/xclock-1.0.9.tar.bz2 \
 && cd xclock-1.0.9 \
 && ./configure $XORG_CONFIG \
-&& make  \
+&& make  $MKOPT \
 && make install

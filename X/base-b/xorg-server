@@ -1,11 +1,11 @@
-tar xvf $PKGS/xorg-server-1.20.8.tar.bz2
+tar xvf $PKGS/xorg-server-1.20.8.tar.bz2 \
 && cd xorg-server-1.20.8 \
 && sed -i 's/malloc(pScreen/calloc(1, pScreen/' dix/pixmap.c \
 && ./configure $XORG_CONFIG            \
-            --enable-glamor         \
+            --disable-glamor \
             --enable-suid-wrapper   \
             --with-xkb-output=/var/lib/xkb  \
-&& make  \
+&& make  $MKOPT \
 && make install \
 && mkdir -pv /etc/X11/xorg.conf.d \
 && cat >> /etc/sysconfig/createfiles << "EOF"

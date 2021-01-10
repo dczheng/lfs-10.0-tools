@@ -1,0 +1,5 @@
+tar xvf $PKGS/xf86-input-evdev-2.10.6.tar.bz2 \
+&& cd xf86-input-evdev-2.10.6 \
+&& ./configure $XORG_CONFIG \
+&& make  \
+&& make install

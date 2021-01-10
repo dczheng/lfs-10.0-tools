@@ -1,0 +1,13 @@
+tar xvf $PKGS/libinput-1.16.1.tar.xz \
+&& cd libinput-1.16.1 \
+&& mkdir build \
+&& cd build \
+&& meson --prefix=$XORG_PREFIX \
+      -Dudev-dir=/lib/udev  \
+      -Ddebug-gui=false     \
+      -Dtests=false         \
+      -Ddocumentation=false \
+      -Dlibwacom=false      \
+      ..                    \
+&& ninja \
+&& ninja install

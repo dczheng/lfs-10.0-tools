@@ -1,6 +1,8 @@
 sources
 X/base
+X/base-build
 X/lib
 X/app
 X/font
-X/driver
+tools/sources
+tools/build

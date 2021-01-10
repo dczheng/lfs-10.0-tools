@@ -1,13 +1,31 @@
 #!/bin/bash
 
+lfs-chroot() {
+    export LFS=/mnt
+    mount -v --bind /dev $LFS/dev
+    mount -v --bind /dev/pts $LFS/dev/pts
+    mount -v --bind /home $LFS/home
+    mount -vt proc proc $LFS/proc
+    mount -vt sysfs sysfs $LFS/sys
+    mount -vt tmpfs tmpfs $LFS/run
+
+    chroot "$LFS" /usr/bin/env -i \
+        TERM="$TERM"
+        PS1="(lfs chroot) \u@\W > " \
+        PATH=/bin:/usr/bin/:/sbin:/usr/sbin \
+        /bin/bash --login +h
+}
+
 X-env() {
 
-    export LFS="/home/dczheng/work/lfs-10.0-tools/X"
-    export PKGS=$LFS/base
-    source $LFS/../lfs-tools.sh
-    export XORG_PREFIX=/usr
-    export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc --localstatedir=/var --disable-static"
-    cd $LFS
+    export XDIR="/home/dczheng/work/lfs-10.0-tools/X"
+    export BUILD_ROOT_DIR=$XDIR
+    cd $XDIR
+
+    source $XDIR/../build-tools.sh
+
+    export XORG_PREFIX="/usr"
+    export XORG_CONFIG="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-static"
 
     export MKOPT="-j4"
     alias ls="ls --color"
@@ -16,50 +34,80 @@ X-env() {
 }
 
 X-build() {
-    lfs-create-dir build
-    LFS_BUILD_DIR="build"
+    
+    cd $BUILD_ROOT_DIR
+    export PKGS=$BUILD_ROOT_DIR/base
+    create-dir "base-build"
+    BUILD_BUILD_DIR="base-build"
     export EXIT_FLAG=""
-    lfs-build-aux $LFS/base-b/util-macros
-    lfs-build-aux $LFS/base-b/xorgproto
-    lfs-build-aux $LFS/base-b/libXau
-    lfs-build-aux $LFS/base-b/libXdmcp
-    lfs-build-aux $LFS/base-b/xcb-proto
-    lfs-build-aux $LFS/base-b/libxcb
+    
+    #run-build $XDIR/base-b/freetype
+    #run-build $XDIR/base-b/fontconfig
+    #run-build $XDIR/base-b/libpng
 
-    lib-build
+    #run-build $XDIR/base-b/util-macros
+    #run-build $XDIR/base-b/xorgproto
+    #run-build $XDIR/base-b/libXau
+    #run-build $XDIR/base-b/libXdmcp
+    #run-build $XDIR/base-b/xcb-proto
+    #run-build $XDIR/base-b/libxcb
 
-    lfs-build-aux $LFS/base-b/xcb-util
-    lfs-build-aux $LFS/base-b/xcb-util-image
-    lfs-build-aux $LFS/base-b/xcb-util-keysyms
-    lfs-build-aux $LFS/base-b/xcb-util-renderutil
-    lfs-build-aux $LFS/base-b/xcb-util-wm
-    lfs-build-aux $LFS/base-b/xcb-util-cursor
-    lfs-build-aux $LFS/base-b/mesa
-    lfs-build-aux $LFS/base-b/xbitmaps
+    #lib-build
 
-    app-build
+    #run-build $XDIR/base-b/xcb-util
+    #run-build $XDIR/base-b/xcb-util-image
+    #run-build $XDIR/base-b/xcb-util-keysyms
+    #run-build $XDIR/base-b/xcb-util-renderutil
+    #run-build $XDIR/base-b/xcb-util-wm
+    #run-build $XDIR/base-b/xcb-util-cursor
 
-    lfs-build-aux $LFS/base-b/xcursor-themes
+    #run-build $XDIR/base-b/libdrm
+    #run-build $XDIR/base-b/markupsafe
+    #run-build $XDIR/base-b/mako
+    #run-build $XDIR/base-b/mesa
 
-    font-build
+    #run-build $XDIR/base-b/xbitmaps
 
-    lfs-build-aux $LFS/base-b/xkeyboard-config
-    lfs-build-aux $LFS/base-b/xterm
-    lfs-build-aux $LFS/base-b/xclock
-    lfs-build-aux $LFS/base-b/xinit
+    #app-build
+
+    #run-build $XDIR/base-b/xcursor-themes
+
+    #font-build
+    #run-build $XDIR/base-b/xkeyboard-config
+    #run-build $XDIR/base-b/pixman
+    #run-build $XDIR/base-b/xorg-server
+    #
+    #run-build $XDIR/base-b/xterm
+    #run-build $XDIR/base-b/xclock
+    #run-build $XDIR/base-b/xinit
+
+    #run-build $XDIR/base-b/libevdev
+    #run-build $XDIR/base-b/xf86-input-synaptics
+    #run-build $XDIR/base-b/xf86-video-intel
+
+    run-build $XDIR/base-b/mtdev
+    run-build $XDIR/base-b/xf86-input-evdev
+    run-build $XDIR/base-b/libinput
 
 }
 
 lib-build() {
 
-bash -e
-cd $LFS/lib
-for package in $(grep -v '^#' $LFS/lib.md5 | awk '{print $2}')
+cd $XDIR/lib
+for package in $(grep -v '^#' $XDIR/lib.md5 | awk '{print $2}')
 do
+
+  if [ 'x'$EXIT_FLAG != 'x' ]
+  then
+    cd $XDIR
+    return
+  fi
+
   packagedir=${package%.tar.bz2}
   tar -xf $package
   pushd $packagedir
-  docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+  docdir="--docdir=/usr/share/doc/$packagedir"
+
   case $packagedir in
     libICE* )
       ./configure $XORG_CONFIG $docdir ICE_LIBS=-lpthread
@@ -77,24 +125,29 @@ do
     * )
       ./configure $XORG_CONFIG $docdir
     ;;
-  esac
-  make
-  #make check 2>&1 | tee ../$packagedir-make_check.log
-  make install
+  esac \
+  && make $MKOPT \
+  && make install
+  set-error-flag $? $packagedir
   popd
+
   rm -rf $packagedir
- /sbin/ldconfig
+  /sbin/ldconfig
+
 done
-exit
-ln -sv $XORG_PREFIX/lib/X11 /usr/lib/X11 &&
-ln -sv $XORG_PREFIX/include/X11 /usr/include/X11
+cd $XDIR
 }
 
 app-build() {
-bash -e
-cd $LFS/app
-for package in $(grep -v '^#' $LFS/app.md5 | awk '{print $2}')
+cd $XDIR/app
+for package in $(grep -v '^#' $XDIR/app.md5 | awk '{print $2}')
 do
+  if [ 'x'$EXIT_FLAG != 'x' ]
+  then
+      cd $XDIR
+	  return
+  fi
+
   packagedir=${package%.tar.?z*}
   tar -xf $package
   pushd $packagedir
@@ -104,44 +157,43 @@ do
        ;;
      esac
 
-     ./configure $XORG_CONFIG
-     make
-     make install
+     ./configure $XORG_CONFIG \
+     && make $MKOPT \
+     && make install
+     set-error-flag $? $packagedir
   popd
   rm -rf $packagedir
 done
-exit
-rm -f $XORG_PREFIX/bin/xkeystone
+rm -f /usr/bin/xkeystone
+cd $XDIR
+echo $EXIT_FLAG
 }
 
 font-build() {
-bash -e
-cd $LFS/font
 
-for package in $(grep -v '^#' $LFS/font.md5 | awk '{print $2}')
+cd $XDIR/font
+for package in $(grep -v '^#' $XDIR/font.md5 | awk '{print $2}')
 do
+  if [ 'x'$EXIT_FLAG != 'x' ]
+  then
+      cd $XDIR
+	  return
+  fi
+
   packagedir=${package%.tar.bz2}
   tar -xf $package
   pushd $packagedir
-    ./configure $XORG_CONFIG
-    make
-    make install
+    ./configure $XORG_CONFIG \
+    && make $MKOPT \
+    && make install
+    set-error-flag $? $packagedir
   popd
   rm -rf $packagedir
 done
-exit
 
 install -v -d -m755 /usr/share/fonts  &&
-ln -svfn $XORG_PREFIX/share/fonts/X11/OTF /usr/share/fonts/X11-OTF &&
-ln -svfn $XORG_PREFIX/share/fonts/X11/TTF /usr/share/fonts/X11-TTF
+cd $XDIR
 
-}
-
-driver-build() {
-    export EXIT_FLAG=""
-    lfs-build-aux $LFS/driver/libevdev
-    lfs-build-aux $LFS/driver/xf86-input-synaptics
-    lfs-build-aux $LFS/driver/xf86-video-intel
 }
 
 X-env

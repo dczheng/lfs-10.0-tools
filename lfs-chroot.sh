@@ -70,6 +70,7 @@ lfs-chroot-env() {
     chmod -v 600  /var/log/btmp
     export LFS="/"
     export LFS_TOOLS=${LFS}lfs-10.0-tools
+    export BUILD_ROOT_DIR=$LFS
     export PKGS=${LFS}sources
     export LFS_BUILD_DIR1=${LFS}build1
     export LFS_BUILD_DIR2=${LFS}build2
@@ -83,16 +84,16 @@ lfs-chroot-env() {
 }
 
 lfs-chroot-build2() {
-    LFS_BUILD_DIR=$CHROOT_LFS_BUILD_DIR2
-    lfs-create-dir $LFS_BUILD_DIR
+    BUILD_BUILD_DIR=$CHROOT_LFS_BUILD_DIR2
+    create-dir $BUILD_BUILD_DIR
     export EXIT_FLAG=""
-    lfs-build-aux $LFS_TOOLS/chroot-b2/libstdc++
-    lfs-build-aux $LFS_TOOLS/chroot-b2/gettext
-    lfs-build-aux $LFS_TOOLS/chroot-b2/bison
-    lfs-build-aux $LFS_TOOLS/chroot-b2/perl
-    lfs-build-aux $LFS_TOOLS/chroot-b2/python
-    lfs-build-aux $LFS_TOOLS/chroot-b2/texinfo
-    lfs-build-aux $LFS_TOOLS/chroot-b2/util-linux
+    run-build $LFS_TOOLS/chroot-b2/libstdc++
+    run-build $LFS_TOOLS/chroot-b2/gettext
+    run-build $LFS_TOOLS/chroot-b2/bison
+    run-build $LFS_TOOLS/chroot-b2/perl
+    run-build $LFS_TOOLS/chroot-b2/python
+    run-build $LFS_TOOLS/chroot-b2/texinfo
+    run-build $LFS_TOOLS/chroot-b2/util-linux
 
     lfs-clean-after-build2
 }
@@ -103,95 +104,95 @@ lfs-clean-after-build2() {
 }
 
 lfs-build3-1() {
-    LFS_BUILD_DIR=$LFS_BUILD_DIR3
-    lfs-create-dir $LFS_BUILD_DIR
+    BUILD_BUILD_DIR=$LFS_BUILD_DIR3
+    create-dir $BUILD_BUILD_DIR
     export EXIT_FLAG=""
-    lfs-build-aux $LFS_TOOLS/b3/man-pages
-    lfs-build-aux $LFS_TOOLS/b3/tcl
-    lfs-build-aux $LFS_TOOLS/b3/expect
-    lfs-build-aux $LFS_TOOLS/b3/dejagnu
-    lfs-build-aux $LFS_TOOLS/b3/iana-etc
-    lfs-build-aux $LFS_TOOLS/b3/glibc
+    run-build $LFS_TOOLS/b3/man-pages
+    run-build $LFS_TOOLS/b3/tcl
+    run-build $LFS_TOOLS/b3/expect
+    run-build $LFS_TOOLS/b3/dejagnu
+    run-build $LFS_TOOLS/b3/iana-etc
+    run-build $LFS_TOOLS/b3/glibc
 }
 
 lfs-build3-2() {
-    LFS_BUILD_DIR=$LFS_BUILD_DIR3
+    BUILD_BUILD_DIR=$LFS_BUILD_DIR3
     export EXIT_FLAG=""
-    lfs-build-aux $LFS_TOOLS/b3/glibc-after-check
-    lfs-build-aux $LFS_TOOLS/b3/glibc-locale
-    lfs-build-aux $LFS_TOOLS/b3/glibc-conf
-    lfs-build-aux $LFS_TOOLS/b3/zlib
-    lfs-build-aux $LFS_TOOLS/b3/bzip2
-    lfs-build-aux $LFS_TOOLS/b3/xz
-    lfs-build-aux $LFS_TOOLS/b3/zstd
-    lfs-build-aux $LFS_TOOLS/b3/file
-    lfs-build-aux $LFS_TOOLS/b3/readline
-    lfs-build-aux $LFS_TOOLS/b3/m4
-    lfs-build-aux $LFS_TOOLS/b3/bc
-    lfs-build-aux $LFS_TOOLS/b3/flex
-    lfs-build-aux $LFS_TOOLS/b3/binutils
-    lfs-build-aux $LFS_TOOLS/b3/gmp
-    lfs-build-aux $LFS_TOOLS/b3/mpfr
-    lfs-build-aux $LFS_TOOLS/b3/mpc
-    lfs-build-aux $LFS_TOOLS/b3/attr
-    lfs-build-aux $LFS_TOOLS/b3/acl
-    lfs-build-aux $LFS_TOOLS/b3/libcap
-    lfs-build-aux $LFS_TOOLS/b3/shadow
-    lfs-build-aux $LFS_TOOLS/b3/gcc
+    run-build $LFS_TOOLS/b3/glibc-after-check
+    run-build $LFS_TOOLS/b3/glibc-locale
+    run-build $LFS_TOOLS/b3/glibc-conf
+    run-build $LFS_TOOLS/b3/zlib
+    run-build $LFS_TOOLS/b3/bzip2
+    run-build $LFS_TOOLS/b3/xz
+    run-build $LFS_TOOLS/b3/zstd
+    run-build $LFS_TOOLS/b3/file
+    run-build $LFS_TOOLS/b3/readline
+    run-build $LFS_TOOLS/b3/m4
+    run-build $LFS_TOOLS/b3/bc
+    run-build $LFS_TOOLS/b3/flex
+    run-build $LFS_TOOLS/b3/binutils
+    run-build $LFS_TOOLS/b3/gmp
+    run-build $LFS_TOOLS/b3/mpfr
+    run-build $LFS_TOOLS/b3/mpc
+    run-build $LFS_TOOLS/b3/attr
+    run-build $LFS_TOOLS/b3/acl
+    run-build $LFS_TOOLS/b3/libcap
+    run-build $LFS_TOOLS/b3/shadow
+    run-build $LFS_TOOLS/b3/gcc
 }
 
 lfs-build3-3() {
-    LFS_BUILD_DIR=$LFS_BUILD_DIR3
+    BUILD_BUILD_DIR=$LFS_BUILD_DIR3
     export EXIT_FLAG=""
-    lfs-build-aux $LFS_TOOLS/b3/pkg-config
-    lfs-build-aux $LFS_TOOLS/b3/ncurses
-    lfs-build-aux $LFS_TOOLS/b3/sed
-    lfs-build-aux $LFS_TOOLS/b3/psmisc
-    lfs-build-aux $LFS_TOOLS/b3/gettext
-    lfs-build-aux $LFS_TOOLS/b3/bison
-    lfs-build-aux $LFS_TOOLS/b3/grep
-    lfs-build-aux $LFS_TOOLS/b3/bash
-    lfs-build-aux $LFS_TOOLS/b3/libtool
-    lfs-build-aux $LFS_TOOLS/b3/gdbm
-    lfs-build-aux $LFS_TOOLS/b3/gperf
-    lfs-build-aux $LFS_TOOLS/b3/expat
-    lfs-build-aux $LFS_TOOLS/b3/inetutils
-    lfs-build-aux $LFS_TOOLS/b3/perl
-    lfs-build-aux $LFS_TOOLS/b3/xml-parser
-    lfs-build-aux $LFS_TOOLS/b3/intltool
-    lfs-build-aux $LFS_TOOLS/b3/autoconf
-    lfs-build-aux $LFS_TOOLS/b3/automake
-    lfs-build-aux $LFS_TOOLS/b3/kmod
-    lfs-build-aux $LFS_TOOLS/b3/elfutils
-    lfs-build-aux $LFS_TOOLS/b3/libffi
-    lfs-build-aux $LFS_TOOLS/b3/openssl
-    lfs-build-aux $LFS_TOOLS/b3/Python
-    lfs-build-aux $LFS_TOOLS/b3/ninja
-    lfs-build-aux $LFS_TOOLS/b3/meson
-    lfs-build-aux $LFS_TOOLS/b3/coreutils
-    lfs-build-aux $LFS_TOOLS/b3/check
-    lfs-build-aux $LFS_TOOLS/b3/diffutils
-    lfs-build-aux $LFS_TOOLS/b3/gawk
-    lfs-build-aux $LFS_TOOLS/b3/findutils
-    lfs-build-aux $LFS_TOOLS/b3/groff
-    lfs-build-aux $LFS_TOOLS/b3/grub
-    lfs-build-aux $LFS_TOOLS/b3/less
-    lfs-build-aux $LFS_TOOLS/b3/gzip
-    lfs-build-aux $LFS_TOOLS/b3/iproute2
+    run-build $LFS_TOOLS/b3/pkg-config
+    run-build $LFS_TOOLS/b3/ncurses
+    run-build $LFS_TOOLS/b3/sed
+    run-build $LFS_TOOLS/b3/psmisc
+    run-build $LFS_TOOLS/b3/gettext
+    run-build $LFS_TOOLS/b3/bison
+    run-build $LFS_TOOLS/b3/grep
+    run-build $LFS_TOOLS/b3/bash
+    run-build $LFS_TOOLS/b3/libtool
+    run-build $LFS_TOOLS/b3/gdbm
+    run-build $LFS_TOOLS/b3/gperf
+    run-build $LFS_TOOLS/b3/expat
+    run-build $LFS_TOOLS/b3/inetutils
+    run-build $LFS_TOOLS/b3/perl
+    run-build $LFS_TOOLS/b3/xml-parser
+    run-build $LFS_TOOLS/b3/intltool
+    run-build $LFS_TOOLS/b3/autoconf
+    run-build $LFS_TOOLS/b3/automake
+    run-build $LFS_TOOLS/b3/kmod
+    run-build $LFS_TOOLS/b3/elfutils
+    run-build $LFS_TOOLS/b3/libffi
+    run-build $LFS_TOOLS/b3/openssl
+    run-build $LFS_TOOLS/b3/Python
+    run-build $LFS_TOOLS/b3/ninja
+    run-build $LFS_TOOLS/b3/meson
+    run-build $LFS_TOOLS/b3/coreutils
+    run-build $LFS_TOOLS/b3/check
+    run-build $LFS_TOOLS/b3/diffutils
+    run-build $LFS_TOOLS/b3/gawk
+    run-build $LFS_TOOLS/b3/findutils
+    run-build $LFS_TOOLS/b3/groff
+    run-build $LFS_TOOLS/b3/grub
+    run-build $LFS_TOOLS/b3/less
+    run-build $LFS_TOOLS/b3/gzip
+    run-build $LFS_TOOLS/b3/iproute2
     fs-build-aux $LFS_TOOLS/b3/kbd
-    lfs-build-aux $LFS_TOOLS/b3/libpipline
-    lfs-build-aux $LFS_TOOLS/b3/make
-    lfs-build-aux $LFS_TOOLS/b3/patch
-    lfs-build-aux $LFS_TOOLS/b3/man-db
-    lfs-build-aux $LFS_TOOLS/b3/tar
-    lfs-build-aux $LFS_TOOLS/b3/texinfo
-    lfs-build-aux $LFS_TOOLS/b3/vim
-    lfs-build-aux $LFS_TOOLS/b3/eudev
-    lfs-build-aux $LFS_TOOLS/b3/procps-ng
-    lfs-build-aux $LFS_TOOLS/b3/util-linux
-    lfs-build-aux $LFS_TOOLS/b3/e2fsprogs
-    lfs-build-aux $LFS_TOOLS/b3/sysklogd
-    lfs-build-aux $LFS_TOOLS/b3/sysvinit
+    run-build $LFS_TOOLS/b3/libpipline
+    run-build $LFS_TOOLS/b3/make
+    run-build $LFS_TOOLS/b3/patch
+    run-build $LFS_TOOLS/b3/man-db
+    run-build $LFS_TOOLS/b3/tar
+    run-build $LFS_TOOLS/b3/texinfo
+    run-build $LFS_TOOLS/b3/vim
+    run-build $LFS_TOOLS/b3/eudev
+    run-build $LFS_TOOLS/b3/procps-ng
+    run-build $LFS_TOOLS/b3/util-linux
+    run-build $LFS_TOOLS/b3/e2fsprogs
+    run-build $LFS_TOOLS/b3/sysklogd
+    run-build $LFS_TOOLS/b3/sysvinit
 
 }
 

@@ -1,6 +1,6 @@
 tar xvf $PKGS/xinit-1.4.1.tar.bz2\
 && cd xinit-1.4.1 \
 && ./configure --with-xinitdir=/etc/X11/app-defaults $XORG_CONFIG \
-&& make  \
+&& make  $MKOPT \
 && make install \
 && ldconfig

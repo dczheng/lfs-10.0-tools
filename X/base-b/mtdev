@@ -1,0 +1,5 @@
+tar xvf $PKGS/mtdev-1.1.6.tar.bz2 \
+&& cd mtdev-1.1.6 \
+&& ./configure --prefix=/usr --disable-static  \
+&& make  $MKOPT \
+&& make install

@@ -1,0 +1,7 @@
+tar xvf $PKGS/libnl-3.5.0.tar.gz \
+&& cd libnl-3.5.0 \
+&& ./configure --prefix=/usr     \
+            --sysconfdir=/etc \
+            --disable-static  \
+&& make $MKOPT \
+&& make install

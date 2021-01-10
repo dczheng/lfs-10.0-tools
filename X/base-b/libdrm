@@ -1,0 +1,7 @@
+tar xvf $PKGS/libdrm-2.4.102.tar.xz \
+&& cd libdrm-2.4.102 \
+&& mkdir build \
+&& cd    build \
+&& meson --prefix=/usr -Dudev=true \
+&& ninja \
+&& ninja install
